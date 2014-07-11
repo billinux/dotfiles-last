@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Productivity Sessions
+function work.ppap() {
+    open "http://presentationpatterns.com"
+	open "http://www.amazon.com/Presentation-Patterns-Techniques-Crafting-Presentations/dp/0321820800/ref=sr_1_1?ie=UTF8&qid=1347145745&sr=8-1&keywords=presentation+patterns"
+	open "https://github.com/presentationPatterns"
+	open "https://github.com/PresentationPatterns/presentationpatterns.github.com"
+
+	open "~/Dropbox/AI-Clients/Presentation-Patterns-Book"
+	open "~/Dropbox/PPAP"
+    iterm "~/Dropbox/AI-Clients/Presentation-Patterns-Book" "PPAP-Book" "black"
+	iterm "~/Dropbox/PPAP" "PPAP-Dropbox" "black"
+	iterm "~/Dropbox/AI-Clients/Presentation-Patterns-Book/presentationpatterns.github.com" "PPAP-Site" "black"
+}
+
+function work.teachgit() {
+    open "https://github.com/githubtrainer/hellogitworld" -a "Firefox"
+	open "https://github.com/githubstudent" -a "Google Chrome"
+	
+	open "https://github.com/github/teach.github.com"
+	open "https://github.com/training/free"
+	open "https://github.com/matthewmccullough/dotfiles"
+
+	open "~/Documents/Temp/Scratch"
+    iterm "~/Documents/Temp/Scratch" "Scratch" "black"
+}
+
+
+function work.gittraining() {
+    open "https://github.com/githubtraining"
+    open "https://github.com/github/training/issues"
+    open "https://github.com/github/teach.github.com"
+
+    open "~/Documents/Code/GitHub"
+    open "~/Documents/Code/GitHub/training.github.com_git"
+    open "~/Documents/Code/GitHub/GUTS_git"
+    open "~/Documents/Code/GitHub/teach.github.com"
+}

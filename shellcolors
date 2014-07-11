@@ -1,0 +1,146 @@
+#!/bin/bash
+
+# vim: ai ts=2 sw=2 et sts=2
+
+
+
+
+
+if tput setaf 1 &> /dev/null; then
+	tput sgr0
+	if [ $(tput colors) -ge 256 ] 2>/dev/null; then
+
+        BLACK=$(tput setaf 0)
+		MAGENTA=$(tput setaf 9)
+		RED=$(tput setaf 196)
+		GREEN=$(tput setaf 40)
+		ORANGE=$(tput setaf 172)
+		YELLOW=$(tput setaf 184)
+		BLUE=$(tput setaf 33)
+		PURPLE=$(tput setaf 165)
+		CYAN=$(tput setaf 51)
+		WHITE=$(tput setaf 255)
+
+		NAVYBLUE=$(tput setaf 17)
+		DARKBLUE=$(tput setaf 18)
+		DARKGREEN=$(tput setaf 22)
+		DEEPSKYBLUE=$(tput setaf 23)
+		DODGERBLUE=$(tput setaf 27)
+		SLATEBLUE=$(tput setaf 99)
+		LIGHTSLATEBLUE=$(tput setaf 105)
+		LIGHTSKYBLUE=$(tput setaf 109)
+		SKYBLUE=$(tput setaf 111)
+		DARKORANGE=$(tput setaf 166)
+		PINK=$(tput setaf 198)
+		LIGHTGOLDENROD=$(tput setaf 222)
+
+        CDH=$(echo -e '\e[(00);(38;5;222)m')
+        CHH=$(echo -e '\e[(00);(38;5;198)m')
+
+	else
+
+        BLACK=$(tput setaf 0)
+		MAGENTA=$(tput setaf 1)
+		RED=$(tput setaf 1)
+		GREEN=$(tput setaf 2)
+		ORANGE=$(tput setaf 3)
+		YELLOW=$(tput setaf 3)
+		BLUE=$(tput setaf 4)
+		PURPLE=$(tput setaf 5)
+		CYAN=$(tput setaf 6)
+		WHITE=$(tput setaf 7)
+		DARKORANGE=$(tput setaf 3)
+		PINK=$(tput setaf 5)
+		LIGHTGOLDENROD=$(tput setaf 3)
+
+        CDH=$(tput setaf 5)
+        CHH=$(tput setaf 3)
+	fi
+
+    #BOLD=$(tput smso)      # set bold mode for rxvt terminal
+    BOLD=$(tput bold)
+	RESET=$(tput sgr0)      # Turn off all
+
+    REVERSE=$(tput smso)    # reverse
+    NOREVERSE=$(tput rmso)  # end reverse
+    BLINK=$(tput blink)     # blink (Doesn't work on most terminal emulators)
+    UNDER=$(tput smul)      # underline
+    END_UNDER=$(tput rmul)  # underline
+    CLEAR=$(tput clear)     # clear screen
+    BELL=$(tput bel)        # bell sound
+    DIM=$(tput dim)         # dim
+    INVIS=$(tput invis)     # invisible
+
+else
+
+    # STYLE                         # FOREGROUND        # BACKGROUND
+    # 0 - Reset all attributes      # 30 - Black        # 40 - Black
+    # 1 - Bright                    # 31 - Red          # 41 - Red
+    # 2 - Dim                       # 32 - Green        # 42 - Green
+    # 4 - Underscore                # 33 - Yellow       # 43 - Yellow
+    # 5 - Blink                     # 34 - Blue         # 44 - Blue
+    # 7 - Reverse                   # 35 - Magenta      # 45 - Magenta
+    # 8 - Hidden                    # 36 - Cyan         # 46 - Cyan
+                                    # 37 - White        # 47 - White
+    # Example:\[\e[0;4;37;44m\]
+
+	RESET="\e[0m"
+
+    BLACK="\e[30m"
+	RED="\e[31m"
+	GREEN="\e[32m"
+	YELLOW="\e[33m"
+    ORANGE=${YELLOW}
+	BLUE="\e[34m"
+	MAGENTA="\e[35m"
+    PURPLE=${MAGENTA}
+	CYAN="\e[36m"
+    LIGHTGREY="\e[37m"
+    DARKGREY="\e[90m"
+    LIGHTRED="\e[91m"
+    LIGHTGREEN="\e[92m"
+    LIGHTYELLOW="\e[93m"
+    LIGHTBLUE="\e[94m"
+    LIGHTMAGENTA="\e[95m"
+    LIGHTCYAN="\e[96m"
+	WHITE="\e[97m"
+
+    CDH=$(echo -e '\e[33m')
+    CHH=$(echo -e '\e[35m')
+	DARKORANGE=${ORANGE}
+	PINK=${PURPLE}
+	LIGHTGOLDENROD=${CYAN}
+
+	BOLD="\e[1m"
+	NOBOLD="\e[21m"
+    DIM="\e[2m"
+    NODIM="\e[22m"
+    UNDER="\e[4m"
+    NOUNDER="\e[24m"
+    BLINK="\e[5m"       # Doesn't work on most terminal emulators
+    NOBLINK="\e[25m"
+    REVERSE="\e[7m"
+    NOREVERSE="\e[27m"
+    HIDDEN="\e[8m"
+    NOHIDDEN="\e[28m"
+
+    SQUARE="\342\226\210"
+
+fi
+
+export BLACK
+export MAGENTA
+export RED
+export GREEN
+export ORANGE
+export BLUE
+export PURPLE
+export CYAN
+export WHITE
+export CDH
+export CHH
+export BOLD
+export CLIGN
+export UNDER
+export RESET
+
