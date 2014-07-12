@@ -38,3 +38,7 @@ rm $HOME/.vimrc
 rm $HOME/.vim
 
 rm -rf $app_dir
+rm -rf ~/.vimbackup
+rm -rf ~/.vimswap
+rm -rf ~/.vimundo
+rm -rf ~/.vimviews
