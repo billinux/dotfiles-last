@@ -43,8 +43,8 @@ if filereadable(expand("~/.vimrc.before"))
 endif
 
 " Use bundles config
-if filereadable(expand("~/.vimrc.bundles.default"))
-    source ~/.vimrc.bundles.default
+if filereadable(expand("~/.vimrc.bundles"))
+    source ~/.vimrc.bundles
 endif
 
 
