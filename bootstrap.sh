@@ -52,9 +52,9 @@ lnif() {
 
 
 do_backup() {
-    if [ -e "$2" ] || [ -e "$3" ] || [ -e "$4" ] || [ -e "$5" ] || [ -e "$6" ] || [ -e "$7" ]; then
+    if [ -e "$2" ] || [ -e "$3" ] || [ -e "$4" ] || [ -e "$5" ] || [ -e "$6" ]; then
         today=`date +%Y%m%d_%s`
-        for i in "$2" "$3" "$4" "$5" "$6" "$7" ; do
+        for i in "$2" "$3" "$4" "$5" "$6" ; do
             [ -e "$i" ] && [ ! -L "$i" ] && mv "$i" "$i.$today";
         done
         ret="$?"
@@ -183,7 +183,6 @@ program_exists "vim" "To install $app_name you first need to install Vim."
 do_backup   "Your old vim stuff has a suffix now and looks like .vim.`date +%Y%m%d%S`" \
         "$HOME/.vim" \
         "$HOME/.vimrc" \
-        "$HOME/.gvimrc"
         "$HOME/.bashrc"\
         "$HOME/.bashrc_profile"\
         "$HOME/.profile"
