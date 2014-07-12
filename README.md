@@ -11,16 +11,19 @@
 * [Vim](http://www.vim.org/) 7.3 or newer
 * [Git](http://git-scm.com/) 1.7 or newer
 * [Curl](http://http://curl.haxx.se/) 7.37 or newer
-
 * [POSIX shell](http://pubs.opengroup.org/onlinepubs/009695399/utilities/sh.html
 
 
-## Installing
+## Installation
 Using Curl to install the latest dotfiles
-    curl -O https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh | /bin/bash
+    curl -O
+    https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh |
+    /bin/bash bootstrap.sh
 
 Using Wget to install the latest dotfiles
-    wget -O https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh | /bin/bash
+    wget -O
+    https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh |
+    /bin/bash bootstrap.sh
 
 ## Author
 [Bill Linux](mailto:bill.linux@laposte.net)
