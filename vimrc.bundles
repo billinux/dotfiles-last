@@ -75,6 +75,7 @@ if count(g:Billinux_bundle_groups, 'writing')
     Bundle 'reedes/vim-textobj-sentence'
     Bundle 'reedes/vim-textobj-quote'
     Bundle 'reedes/vim-wordy'
+    Bundle 'DrawIt'
 endif
 
 " General programming

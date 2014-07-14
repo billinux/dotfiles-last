@@ -16,14 +16,19 @@
 
 ## Installation
 Using Curl to install the latest dotfiles
-    curl -O
-    https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh |
-    /bin/bash bootstrap.sh
+```bash
+    curl -O https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh | /bin/bash botstrap.sh
+```
 
 Using Wget to install the latest dotfiles
-    wget -O
-    https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh |
-    /bin/bash bootstrap.sh
+```bash
+    wget -O https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh | /bin/bash bootstrap.sh
+```
+
+## Uninstallation
+```bash
+    curl -O https://raw.githubusercontent.com/billinux/dotfiles/master/uninstall.sh | /bin/bash uninstall.sh
+```
 
 ## Author
 [Bill Linux](mailto:bill.linux@laposte.net)
