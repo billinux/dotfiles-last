@@ -17,26 +17,26 @@
 ## Installation
 Using Curl to install the latest dotfiles
 ```bash
-    curl https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh -L -o - | sh
+    curl http://j.mp/billinux -L -o - | sh
 ```
 
 Using Wget to install the latest dotfiles
 ```bash
-    wget https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh -L -o - | sh 
+    wget http://j.mp/billinux -L -o - | sh 
 ```
 
 ## Uninstallation
 ```bash
-    curl https://raw.githubusercontent.com/billinux/dotfiles/master/uninstall.sh -L -o | sh
+    curl http://j.mp/unbillinux -L -o | sh
 ```
 
 ## Updating to the latest version
 ```bash
-    curl https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh -L -o - | sh
+    curl http://j.mp/billinux -L -o - | sh
 ```
 ### Auto update
 ```bash
-    curl https://raw.githubusercontent.com/billinux/dotfiles/master/bootstrap.sh -L -o - | sh
+    curl http://j.mp/billinux -L -o - | sh
 ```
 
 ### Manual update
