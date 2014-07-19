@@ -1,6 +1,10 @@
-" ------------------------------------------------------------------------------
+" Modelines and notes
+
+
+
+
+
 " Environment
-" ------------------------------------------------------------------------------
 silent function! OSX()
     return has('macunix')
 endfunction
@@ -13,12 +17,15 @@ silent function! WINDOWS()
     return (has('win16') || has('win32') || has('win64'))
 endfunction
 
-" ------------------------------------------------------------------------------
+
+
 " Basics
-" ------------------------------------------------------------------------------
-if &compatible                                      " Only if not set before"
-    set nocompatible                                " Use VIM defaults instead
-endif
+set nocompatible                                " Use VIM defaults instead
+set background=dark
+set mousehide
+set mouse=a
+set hidden                                          " Allow buffer switching without saving
+scriptencoding utf-8
 
 " Shell according to system
 if !WINDOWS()
@@ -43,14 +50,10 @@ if filereadable(expand("~/.vimrc.before"))
 endif
 
 " Use bundles config
-if filereadable(expand("~/.vimrc.bundles"))
-    source ~/.vimrc.bundles
+if filereadable(expand("~/.vimrc.bundles.default"))
+    source ~/.vimrc.bundles.default
 endif
 
-
-" ------------------------------------------------------------------------------
-" Display
-" ------------------------------------------------------------------------------
 filetype plugin indent on                           " Automatically detect file types
 
 if &t_Co > 2 || has("gui_running")
@@ -59,148 +62,43 @@ if &t_Co > 2 || has("gui_running")
     set incsearch                                   " Find as you type search
 endif
 
-set background=dark                                 " Assume a Dark background
+
+" Vim UI
+
+if filereadable(expand("~/.vim/bundle/vim-colors-solarized/colors/solarized.vim"))
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+    let g:solarized_contrast="normal"
+    let g:solarized_visibility="normal"
+    color solarized
+endif
+
+set number
+set numberwidth=3
+set tabpagemax=15                                   " Only show 15 tabs
+set showmode                                        " Display the current mode
+set cursorline                                      " Highlight current line
 set scrolljump=5                                    " Lines to scroll when cursor leaves screen
 set scrolloff=3                                     " Minimum lines to keep above and below cursor
-
-if exists("&colorcolumn")
-    set colorcolumn=80
-endif
-
-set cursorline                                      " Hightlight cursor line
-highlight clear SignColumn
-highlight clear LineNr
-let g:CSApprox_hook_post = ['hi clear SignColumn']
-
-
-if has('cmdline_info')
-    set ruler                                       " Show the ruler
-    set rulerformat=%27(%{strftime('%a\ %e\ %b\ %I:%M\ %p')}\ %2l,%-2(%c%V%)\ %P%)
-    set showcmd                                     " Show partial commands in status line
-endif
-
-
-if has('statusline')
-    set laststatus=2
-
-    set statusline=%<%f\                                                    " Filename
-    set statusline+=%w%h%m%r                                                " Options
-    set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''} " Git Hotness
-    set statusline+=\ [%{&ff}/%Y]                                           " Filetype
-    set statusline+=\ [%{getcwd()}]                                         " Current dir
-    set statusline+=%=%-14.(%l,%c%V%)\ %p%%                                 " Right aligned file nav info
-endif
-
 set showmatch                                       " Show matching brackets/parenthesis
 set wildmenu                                        " Show list instead of just completing
 set wildmode=list:longest,full                      " Command <Tab> completion
 set whichwrap=b,s,h,l,<,>,[,]                       " Backspace and cursor keys wrap too
 set title                                           " Show file in tilebar
-
-" ------------------------------------------------------------------------------
-" GUI & Term
-" ------------------------------------------------------------------------------
-
-
-" GVIM- (here instead of .gvimrc)
-if has('gui_running')
-    set guioptions-=T           " Remove the toolbar
-    set lines=40                " 40 lines of text instead of 24
-    if !exists("g:spf13_no_big_font")
-        if LINUX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
-        elseif OSX() && has("gui_running")
-            set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
-        elseif WINDOWS() && has("gui_running")
-            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
-        endif
-    endif
-else
-    if &term == 'xterm-256color' || &term == 'screen'
-        set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-    endif
-    "set term=builtin_ansi       " Make arrow and other keys work
-endif
-
-" ------------------------------------------------------------------------------
-" Colors
-" ------------------------------------------------------------------------------
-
-" Test if the default colorscheme existe
-if has("gui_running") || &t_Co >= 256
-    try
-        colorscheme molokai
-        let g:molokai_original = 1
-    catch
-        colorscheme torte
-    endtry
-elseif &t_Co >=88
-    try
-        colorscheme zenburn
-    catch
-        colorscheme torte
-    endtry
-elseif &t_Co >=8
-    try
-        colorscheme rastafari
-    catch
-        colorscheme torte
-    endtry
-endif
-
-
-" ------------------------------------------------------------------------------
-" Editor
-" ------------------------------------------------------------------------------
-
 set backspace=indent,eol,start                      " Backspace for dummies
 set encoding=utf-8                                  " Files are encoded into utf-8
 set linespace=0                                     " No extra spaces between rows
-set nu                                              " Line numbers on
 set winminheight=0                                  " Windows can be 0 line high
 set ignorecase                                      " Case insensitive search
 set smartcase                                       " Case sensitive when uc present
 set smartindent                                     " Smart auto indenting
-
-if exists("&foldenable")
-    set foldenable                                  " Folding is authorized
-endif
-
-if !exists('g:Billinux_no_list')
-    set list                                        " Listchars
-endif
-set listchars=nbsp:%,tab:>-,trail:.,extends:>,precedes:<,eol:$
-
 set autowrite                                       " Automatically write a file when leaving a modified buffer
 set shortmess+=filmnrxoOtT                          " Abbrev. of messages (avoids 'hit enter')
-set viewoptions=folds,options,cursor,unix,slash     " Better Unix / Windows compatibility
 set virtualedit=onemore                             " Allow for cursor beyond last character
 
-if !exists('g:Billinux_no_spell')
-    set spell                                       " Spell checking on
-    set spelllang=fr
-    nnoremap <leader>s :set spell!<CR>
-endif
-
-" ------------------------------------------------------------------------------
-" Formatting
-" ------------------------------------------------------------------------------
-
-set shiftwidth=4                                    " Use indents of 4 spaces
-set expandtab                                       " Tabs are spaces, not tab
-set tabstop=4                                       " An indentation every 4 columns
-set softtabstop=4                                   " Let backspace delete indent
-set smarttab                                        " Smarttab handling for indenting
-
-autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> if !exists('g:Billinux_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-
-" ------------------------------------------------------------------------------
-" System
-" ------------------------------------------------------------------------------
-
-set hidden                                          " Allow buffer switching without saving
-set mouse=a                                         " Automatically enable mouse usage
-set history=1000                                    " Store a ton of history (default is 20)
+set viewoptions=folds,options,cursor,unix,slash     " Better Unix / Windows compatibility
+au BufWinLeave ?* mkview
+au BufWinEnter ?* silent loadview
 
 " Setting up the directories
 set backup                                          " Backups are nice ...
@@ -210,9 +108,79 @@ if has('persistent_undo')
     set undoreload=10000                            " Maximum number lines to save for undo on a buffer reload
 endif
 
-" ------------------------------------------------------------------------------
-" Key Mappings
-" ------------------------------------------------------------------------------
+set history=1000                                    " Store a ton of history (default is 20)
+"
+if exists("&foldenable")
+    set foldenable                                  " Folding is authorized
+    set foldlevel=0
+    set foldlevelstart=0
+endif
+
+if !exists('g:Billinux_no_list')
+    set list                                        " Listchars
+endif
+
+if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+    set listchars=nbsp:%
+    set listchars+=tab:>-
+    set listchars+=trail:~
+    set listchars+=extends:>
+    set listchars+=precedes:<
+    set listchars+=eol:$
+
+    set fillchars+=vert:\+ |
+    set fillchars+=diff:-
+endif
+
+set showbreak=-
+
+if !exists('g:Billinux_no_spell')
+    set spell                                       " Spell checking on
+    set spelllang=fr
+    nnoremap <leader>s :set spell!<CR>
+endif
+
+if exists("&colorcolumn")
+    set colorcolumn=80
+endif
+
+highlight clear SignColumn                          " SignColumn should match background
+highlight clear LineNr                              " Current line number row will have same background color in relative mode
+let g:CSApprox_hook_post = ['hi clear SignColumn']
+"highlight clear CursorLineNr                       " Remove highlight color from current line number
+
+if has('cmdline_info')
+set ruler                                           " Show the ruler
+set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)  " A ruler on steroids
+set showcmd                                         " Show partial commands in status line ande selected characters/lines in visual mode
+endif
+
+if has('statusline')
+set laststatus=2
+    set statusline=%<%f\                                                    " Filename
+    set statusline+=%w%h%m%r                                                " Options
+    set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''} " Git Hotness
+    set statusline+=\ [%{&ff}/%Y]                                           " Filetype
+    set statusline+=\ [%{getcwd()}]                                         " Current dir
+    set statusline+=%=%-14.(%l,%c%V%)\ %p%%                                 " Right aligned file nav info
+endif
+
+
+" Formatting
+set shiftwidth=4                                    " Use indents of 4 spaces
+set expandtab                                       " Tabs are spaces, not tab
+set tabstop=4                                       " An indentation every 4 columns
+set softtabstop=4                                   " Let backspace delete indent
+set smarttab                                        " Smarttab handling for indenting
+set splitright                                      " Puts new vsplit windows to the right of the
+set splitbelow                                      " Puts new split windows to the bottom of the
+set pastetoggle=<F12>                               " Paste toggle
+
+autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml,perl autocmd BufWritePre <buffer> if !exists('g:Billinux_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+
+
+" Mappings
+nmap <leader>v :vsp $MYVIMRC<CR>
 
 nnoremap <leader>s :write<cr>
 nnoremap <leader>S :saveas<space>
@@ -232,7 +200,6 @@ inoremap jk <ESC>
 nnoremap <silent> k :<C-U>execute 'normal!' (v:count>1 ? "m'".v:count.'k' : 'gk')<Enter>
 nnoremap <silent> j :<C-U>execute 'normal!' (v:count>1 ? "m'".v:count.'j' : 'gj')<Enter>
 
-set pastetoggle=<F10>
 
 " Switch different kind line number
 nnoremap <leader>, :set invnumber<cr>
@@ -266,27 +233,76 @@ nmap <leader>f7 :set foldlevel=7<CR>
 nmap <leader>f8 :set foldlevel=8<CR>
 nmap <leader>f9 :set foldlevel=9<CR>
 
-noremap <leader><space> :noh<cr>
-" To clear search highlighting rather than toggle it and off
-""if !exists('g:Billinux_clear_search_highlight')
-    ""nmap <silent> <leader><space> :nohlsearch<CR>
-    ""noremap <leader><space> :noh<cr>:call clearmatches()<cr>
-""    noremap <leader><space> :noh<cr>
-""else
-""    nmap <silent> <leader><space> :invhlsearch<CR>
-""endif
+nnoremap <space> za
+vnoremap <space> zf
 
-" ------------------------------------------------------------------------------
-" Plugins
-" ------------------------------------------------------------------------------
-"
-if filereadable(expand("~/.vimrc.plugins.config"))
+""noremap <leader><space> :noh<cr>
+" To clear search highlighting rather than toggle it and off
+if !exists('g:Billinux_clear_search_highlight')
+    noremap <silent> <leader><space> :nohlsearch<CR>
+else
+    noremap <silent> <leader><space> :invhlsearch<CR>
+endif
+
+" Window navigation
+map <C-J> <C-W>j<C-W>_
+map <C-k> <C-W>k<C-W>_
+map <C-h> <C-W>h<C-W>_
+map <C-l> <C-W>l<C-W>_
+
+
+
+" Filetype setting
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
+
+
+
+" Plugins settings
+" Use bundles config
+if filereadable(expand("~/.vimrc.plugins.configs"))
     source ~/.vimrc.plugins.config
 endif
 
-" ------------------------------------------------------------------------------
+
+" GUI
+
+" GVIM- (here instead of .gvimrc)
+if has('gui_running')
+    set guioptions-=T           " Remove the toolbar
+    set lines=40                " 40 lines of text instead of 24
+    if !exists("g:spf13_no_big_font")
+        if LINUX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular\ 12,Menlo\ Regular\ 11,Consolas\ Regular\ 12,Courier\ New\ Regular\ 14
+        elseif OSX() && has("gui_running")
+            set guifont=Andale\ Mono\ Regular:h12,Menlo\ Regular:h11,Consolas\ Regular:h12,Courier\ New\ Regular:h14
+        elseif WINDOWS() && has("gui_running")
+            set guifont=Andale_Mono:h10,Menlo:h10,Consolas:h10,Courier_New:h10
+        endif
+    endif
+else
+    if &term =~ 'xterm' || &term =~ 'screen' || &term =~ 'cywin'
+        set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+    endif
+    "set term=builtin_ansi       " Make arrow and other keys work
+endif
+
+
+
 " Functions
-" ------------------------------------------------------------------------------
+function! NeatFoldText() 
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
 
 " Initialize directories
 function! InitializeDirectories()
@@ -357,9 +373,8 @@ function! StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 
-" ------------------------------------------------------------------------------
+
 " Custom .vimrc
-" ------------------------------------------------------------------------------
 
 " Use fork vimrc if available
 if filereadable(expand("~/.vimrc.fork"))
@@ -377,3 +392,5 @@ if has('gui_running')
         source ~/.gvimrc.local
     endif
 endif
+
+

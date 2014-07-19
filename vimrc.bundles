@@ -1,6 +1,5 @@
 
 " Windows Compatible
-" -----------------------------------------------------------------------------
 " On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
 " across (heterogeneous) systems easier.
 if has('win32') || has('win64')
@@ -23,7 +22,8 @@ if has('win32') || has('win64')
     endif
 endif
 
-"
+
+
 " Setup Bundle Support
 " -----------------------------------------------------------------------------
 " The next three lines ensure that the ~/.vim/bundle/ system works
@@ -32,10 +32,23 @@ filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
+
+
 " Bundles
 " -----------------------------------------------------------------------------
 " Dependancies
 Bundle 'gmarik/vundle'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+if executable('ag')
+    Bundle 'mileszs/ack.vim'
+    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+elseif executable('ack-grep')
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    Bundle 'mileszs/ack.vim'
+elseif executable('ack')
+    Bundle 'mileszs/ack.vim'
+endif
 
 
 " In your .vimrc.before.local file
@@ -51,22 +64,49 @@ if !exists("g:override_Billinux_bundles")
 endif
 
 
+
 " General
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'general')
     Bundle 'billinux/vim-colors'
-    Bundle 'godlygeek/csapprox'
-    Bundle 'matchit.zip'
-    Bundle 'scrooloose/nerdtree'
     if !exists('g:Billinux_no_views')
         Bundle 'vim-scripts/restore_view.vim'
     endif
-    Bundle 'tpope/vim-abolish.git'
-    Bundle 'mbbill/undotree'
-    Bundle 'vim-scripts/sessionman.vim'
+    Bundle 'scrooloose/nerdtree'
+    Bundle 'altercation/vim-colors-solarized'
+    "Bundle 'spf13/vim-colors'
+    Bundle 'tpope/vim-surround'
+    Bundle 'tpope/vim-repeat'
     Bundle 'spf13/vim-autoclose'
+    Bundle 'kien/ctrlp.vim'
+    Bundle 'tacahiroy/ctrlp-funky'
+    Bundle 'terryma/vim-multiple-cursors'
+    Bundle 'vim-scripts/sessionman.vim'
+    Bundle 'matchit.zip'
+    if (has("python") || has("python3")) && exists('g:Billinux_use_powerline') && !exists('g:Billinux_use_old_powerline')
+        Bundle 'Lokaltog/powerline', {'rtp':'/powerline/bindings/vim'}
+    elseif exists('g:Billinux_use_powerline') && exists('g:Billinux_use_old_powerline')
+        Bundle 'Lokaltog/vim-powerline'
+    else
+        Bundle 'bling/vim-airline'
+    endif
+    Bundle 'bling/vim-bufferline'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'godlygeek/csapprox'
+    Bundle 'jistr/vim-nerdtree-tabs'
+    Bundle 'flazz/vim-colorschemes'
+    Bundle 'mbbill/undotree'
+    Bundle 'nathanaelkane/vim-indent-guides'
+    Bundle 'mhinz/vim-signify'
+    Bundle 'tpope/vim-abolish.git'
+    Bundle 'osyo-manga/vim-over'
+    Bundle 'kana/vim-textobj-user'
+    Bundle 'kana/vim-textobj-indent'
+    Bundle 'gcmt/wildfire.vim'
 
 endif
+
+
 
 " Writing
 " -----------------------------------------------------------------------------
@@ -77,6 +117,8 @@ if count(g:Billinux_bundle_groups, 'writing')
     Bundle 'reedes/vim-wordy'
     Bundle 'DrawIt'
 endif
+
+
 
 " General programming
 " -----------------------------------------------------------------------------
@@ -91,6 +133,8 @@ if count(g:Billinux_bundle_groups, 'programming')
         Bundle 'majutsushi/tagbar'
     endif
 endif
+
+
 
 " Snippets & AutoComplete
 " -----------------------------------------------------------------------------
@@ -117,12 +161,16 @@ elseif count(g:Billinux_bundle_groups, 'neocomplete')
     Bundle 'honza/vim-snippets'
 endif
 
+
+
 " PHP
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'php')
     Bundle 'spf13/PIV'
     Bundle 'arnaud-lb/vim-php-namespace'
 endif
+
+
 
 " Python
 " -----------------------------------------------------------------------------
@@ -133,6 +181,8 @@ if count(g:Billinux_bundle_groups, 'python')
     endif
 endif
 
+
+
 " Javascript
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'javascript')
@@ -142,6 +192,8 @@ if count(g:Billinux_bundle_groups, 'javascript')
     Bundle 'briancollins/vim-jst'
 endif
 
+
+
 " HTML
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'html')
@@ -150,6 +202,8 @@ if count(g:Billinux_bundle_groups, 'html')
     Bundle 'amirh/HTML-AutoCloseTag'
     Bundle 'gorodinskiy/vim-coloresque'
 endif
+
+
 
 " Twig template
 " -----------------------------------------------------------------------------
@@ -166,6 +220,8 @@ if count(g:Billinux_bundle_groups, 'css')
     Bundle 'wavded/vim-stylus'
 endif
 
+
+
 " Ruby
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'ruby')
@@ -176,6 +232,8 @@ if count(g:Billinux_bundle_groups, 'ruby')
         "let g:rubycomplete_rails = 1
     endif
 endif
+
+
 
 " Misc
 " -----------------------------------------------------------------------------
@@ -192,7 +250,9 @@ if filereadable(expand("~/.vimrc.bundles.fork"))
     source ~/.vimrc.bundles.fork
 endif
 
+
 " Use local bundles config if available
 if filereadable(expand("~/.vimrc.bundles.local"))
     source ~/.vimrc.bundles.local
 endif
+
