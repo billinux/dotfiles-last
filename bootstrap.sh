@@ -127,6 +127,7 @@ create_symlinks() {
 
     lnif "$endpath/vimrc"               "$HOME/.vimrc"
     lnif "$endpath/vimrc.bundles"       "$HOME/.vimrc.bundles"
+    lnif "$endpath/vimrc.bundles.default"       "$HOME/.vimrc.bundles.default"
     lnif "$endpath/vimrc.before"        "$HOME/.vimrc.before"
     lnif "$endpath/vim"                 "$HOME/.vim"
 
