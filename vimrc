@@ -83,6 +83,8 @@ set scrolloff=3                                     " Minimum lines to keep abov
 set showmatch                                       " Show matching brackets/parenthesis
 set wildmenu                                        " Show list instead of just completing
 set wildmode=list:longest,full                      " Command <Tab> completion
+set wildignorecase
+set wildignore+=*.swp,*.bak,*.pyc,*.class,*.o,*.obj,tags
 set whichwrap=b,s,h,l,<,>,[,]                       " Backspace and cursor keys wrap too
 set title                                           " Show file in tilebar
 set backspace=indent,eol,start                      " Backspace for dummies
@@ -97,8 +99,6 @@ set shortmess+=filmnrxoOtT                          " Abbrev. of messages (avoid
 set virtualedit=onemore                             " Allow for cursor beyond last character
 
 set viewoptions=folds,options,cursor,unix,slash     " Better Unix / Windows compatibility
-au BufWinLeave ?* mkview
-au BufWinEnter ?* silent loadview
 
 " Setting up the directories
 set backup                                          " Backups are nice ...
@@ -133,6 +133,10 @@ if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
 endif
 
 set showbreak=-
+
+if has('balloon_eval') && has('unix')
+    set ballooneval
+endif
 
 if !exists('g:Billinux_no_spell')
     set spell                                       " Spell checking on
@@ -202,7 +206,7 @@ nnoremap <silent> j :<C-U>execute 'normal!' (v:count>1 ? "m'".v:count.'j' : 'gj'
 
 
 " Switch different kind line number
-nnoremap <leader>, :set invnumber<cr>
+nnoremap <leader>: :set invnumber<cr>
 nnoremap <leader>; :set relativenumber<cr>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D
@@ -220,6 +224,21 @@ inoremap <c-u> <esc>gUiwea
 
 "Indent all lines
 noremap ia mzggVG='z
+
+" Save file (ctrl-s)
+nmap <c-s> :w<cr>
+
+" Save when you are in the 'INSERT MODE' (ctrl-s)
+imap <c-s> <esc>:w<cr>a
+
+" Copy selected text (ctrl-c)
+vmap <c-c> y
+
+"Paste clipboard contents (ctrl-p) (à modifier)
+imap <c-p> <esc>P
+
+"Cut selected text (ctrl-x)
+vmap <c-x> x
 
 " Folding options
 nmap <leader>f0 :set foldlevel=0<CR>
