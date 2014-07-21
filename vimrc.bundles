@@ -68,13 +68,12 @@ endif
 " General
 " -----------------------------------------------------------------------------
 if count(g:Billinux_bundle_groups, 'general')
-    Bundle 'billinux/vim-colors'
     if !exists('g:Billinux_no_views')
         Bundle 'vim-scripts/restore_view.vim'
     endif
     Bundle 'scrooloose/nerdtree'
     Bundle 'altercation/vim-colors-solarized'
-    "Bundle 'spf13/vim-colors'
+    Bundle 'tomasr/molokai'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
     Bundle 'spf13/vim-autoclose'
