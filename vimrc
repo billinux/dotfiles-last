@@ -1,5 +1,10 @@
 " Modelines and notes
 
+set nocompatible                                    " Use VIM defaults instead
+scriptencoding utf-8
+set encoding=utf-8
+set modeline
+set modelines=5                                     " Default number of lines to read for modeline instructions
 
 
 
@@ -20,12 +25,10 @@ endfunction
 
 
 " Basics
-set nocompatible                                " Use VIM defaults instead
 set background=dark
 set mousehide
 set mouse=a
 set hidden                                          " Allow buffer switching without saving
-scriptencoding utf-8
 
 " Shell according to system
 if !WINDOWS()
@@ -112,7 +115,7 @@ set history=1000                                    " Store a ton of history (de
 "
 if exists("&foldenable")
     set foldenable                                  " Folding is authorized
-    set foldlevel=0
+    set foldlevel=100
     set foldlevelstart=0
 endif
 
